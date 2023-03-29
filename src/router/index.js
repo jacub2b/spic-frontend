@@ -1,10 +1,16 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import App from "@/App";
+import Welcome from "@/components/Welcome";
+import ImagesView from "@/components/ImagesView";
 
 const routes = [
     {
         path: '/',
-        component: App
+        component: Welcome
+    },
+    {
+        path: '/categories/:category/images',
+        component: ImagesView,
+        props: true
     }
 ]
 

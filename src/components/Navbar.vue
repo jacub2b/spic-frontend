@@ -1,25 +1,28 @@
 <template>
-    <v-app-bar elevation="5">
-      <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>SPIC - Let The Pic Speak!</v-toolbar-title>
-    </v-app-bar>
+  <v-app-bar elevation="5">
+    <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-toolbar-title>SPIC - Let The Pic Speak!</v-toolbar-title>
+  </v-app-bar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      location="left"
-      temporary
-    >
-      <v-list>
-        <v-list-subheader>Categories</v-list-subheader>
-        <v-list-item
-          v-for="(category, i) in categories"
-          :key="i"
-          :value="category.value"
-        >
-          <v-icon start :icon="category.icon"></v-icon>{{ category.title }}
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+  <v-navigation-drawer
+    v-model="drawer"
+    location="left"
+    temporary
+  >
+    <v-list>
+      <v-list-subheader>Categories</v-list-subheader>
+      <v-list-item
+        v-for="(category, i) in categories"
+        :key="i"
+        :value="category.value"
+      >
+        <router-link style="text-decoration: none; color: inherit" :to="`/categories/${category.value}/images`">
+          <v-icon start :icon="category.icon"></v-icon>
+          {{ category.title }}
+        </router-link>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
