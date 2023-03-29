@@ -23,38 +23,22 @@
 </template>
 
 <script>
+import {axiosIns} from "../../axios.config";
+
 export default {
   data: () => ({
     drawer: false,
     group: null,
-    categories: [
-      {
-        title: 'Drinks',
-        value: 'drinks',
-        icon: 'mdi-beer'
-      },
-      {
-        title: 'Snacks',
-        value: 'snacks',
-        icon: 'mdi-french-fries'
-      },
-      {
-        title: 'Vegetables',
-        value: 'vegetables',
-        icon: 'mdi-carrot'
-      },
-      {
-        title: 'Fruits',
-        value: 'fruits',
-        icon: 'mdi-food-apple'
-      },
-    ],
+    categories: [],
   }),
-
   watch: {
     group() {
       this.drawer = false
     },
   },
+  mounted() {
+    axiosIns('/categories')
+      .then(res => this.categories = res.data)
+  }
 }
 </script>
