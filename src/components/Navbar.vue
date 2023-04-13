@@ -16,7 +16,7 @@
         :key="i"
         :value="category.value"
       >
-        <router-link style="text-decoration: none; color: inherit" :to="`/categories/${category.value}/images`">
+        <router-link id="routerLink" :to="`/categories/${category.value}/pictures`">
           <v-icon start :icon="category.icon"></v-icon>
           {{ category.title }}
         </router-link>
@@ -45,3 +45,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#routerLink {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
