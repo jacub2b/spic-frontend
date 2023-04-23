@@ -88,7 +88,6 @@ export default {
         localStorage.setItem('jwt_token', token)
         axiosIns.defaults.headers.common['Authorization'] = `Bearer ${token}`
         this.$router.push('/')
-        axiosIns('/categories').then(res => console.log(res))
       }).catch(() => this.isError = true)
     }
   }

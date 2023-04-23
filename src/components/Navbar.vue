@@ -2,6 +2,10 @@
   <v-app-bar elevation="5">
     <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     <v-toolbar-title>SPIC - Let The Pic Speak!</v-toolbar-title>
+
+    <router-link class="routerLink" to="/login">
+      <v-btn>Login</v-btn>
+    </router-link>
     <router-link class="routerLink" to="/register">
       <v-btn>Register</v-btn>
     </router-link>
