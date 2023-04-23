@@ -2,6 +2,9 @@
   <v-app-bar elevation="5">
     <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     <v-toolbar-title>SPIC - Let The Pic Speak!</v-toolbar-title>
+    <router-link class="routerLink" to="/register">
+      <v-btn>Register</v-btn>
+    </router-link>
   </v-app-bar>
 
   <v-navigation-drawer
@@ -16,7 +19,7 @@
         :key="i"
         :value="category.value"
       >
-        <router-link id="routerLink" :to="`/categories/${category.value}/pictures`">
+        <router-link class="routerLink" :to="`/categories/${category.value}/pictures`">
           <v-icon start :icon="category.icon"></v-icon>
           {{ category.title }}
         </router-link>
@@ -47,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-#routerLink {
+.routerLink {
   text-decoration: none;
   color: inherit;
 }

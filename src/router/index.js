@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Welcome from "@/components/Welcome";
 import PicturesView from "@/components/PicturesView";
+import Register from "@/components/Register";
 
 const routes = [
     {
@@ -11,6 +12,10 @@ const routes = [
         path: '/categories/:category/pictures',
         component: PicturesView,
         props: true
+    },
+    {
+        path: '/register',
+        component: Register
     }
 ]
 

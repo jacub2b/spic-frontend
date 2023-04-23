@@ -23,6 +23,5 @@ img {
 
 p {
   font-family: "Franklin Gothic Book", sans-serif !important;
-
 }
 </style>
