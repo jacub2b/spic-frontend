@@ -3,9 +3,13 @@
     <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     <v-toolbar-title>SPIC - Let The Pic Speak!</v-toolbar-title>
 
-    <router-link class="routerLink" to="/login">
+    <router-link v-if="!isLogged" class="routerLink" to="/login">
       <v-btn>Login</v-btn>
     </router-link>
+    <p v-if="isLogged">
+      Welcome {{ getUsername }}
+      <v-btn @click="logout">Logout</v-btn>
+    </p>
     <router-link class="routerLink" to="/register">
       <v-btn>Register</v-btn>
     </router-link>
@@ -34,6 +38,7 @@
 
 <script>
 import {axiosIns} from "../../axios.config";
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   data: () => ({
@@ -41,6 +46,13 @@ export default {
     group: null,
     categories: [],
   }),
+
+  computed: {
+    ...mapGetters(['isLogged', 'getUsername'])
+  },
+  methods: {
+    ...mapActions(['logout'])
+  },
   watch: {
     group() {
       this.drawer = false

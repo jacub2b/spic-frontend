@@ -38,6 +38,7 @@
 <script>
 import {axiosIns} from "../../axios.config";
 import ErrorAlert from "@/components/ErrorAlert";
+import {mapActions} from 'vuex'
 
 export default {
   name: "Login",
@@ -49,6 +50,7 @@ export default {
     errorText: ''
   }),
   methods: {
+    ...mapActions(['login']),
     handleLogin() {
       const username = this.username
       const password = this.password
@@ -63,8 +65,7 @@ export default {
         data: {username, password}
       }).then(res => {
         const token = res.data.token
-        localStorage.setItem('jwt_token', token)
-        axiosIns.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        this.login(username, token)
         this.$router.push('/')
       }).catch(() => {
         this.errorText = "Username or password isn't correct."
