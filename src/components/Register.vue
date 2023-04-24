@@ -54,6 +54,7 @@
 <script>
 import {axiosIns} from "../../axios.config";
 import ErrorAlert from "@/components/ErrorAlert";
+import {mapActions} from "vuex";
 
 export default {
   name: "Register",
@@ -75,6 +76,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login']),
     handleRegister() {
       const username = this.username
       const password = this.password
@@ -85,8 +87,7 @@ export default {
         data: {username, password, email}
       }).then(res => {
         const token = res.data.token
-        localStorage.setItem('jwt_token', token)
-        axiosIns.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        this.login(username, token)
         this.$router.push('/')
       }).catch(() => this.isError = true)
     }
