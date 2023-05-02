@@ -10,8 +10,9 @@
             :alt="picture.title"
             :key="i"
             height="250"
+            cover
           >
-            <v-checkbox-btn :value="picture.src" v-model="selectedPictures"/>
+            <v-checkbox-btn style="font-size: 25px" :value="picture.src" v-model="selectedPictures"/>
           </v-img>
           <v-card-title>{{ picture.title }}</v-card-title>
         </v-card>
