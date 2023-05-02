@@ -9,8 +9,7 @@
             :src="picture.src"
             :alt="picture.title"
             :key="i"
-            height="150"
-            cover
+            height="250"
           >
             <v-checkbox-btn :value="picture.src" v-model="selectedPictures"/>
           </v-img>
