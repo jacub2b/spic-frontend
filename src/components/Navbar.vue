@@ -16,22 +16,23 @@
   </v-app-bar>
 
   <v-navigation-drawer
-    v-model="drawer"
-    location="left"
-    temporary
+      v-model="drawer"
+      location="left"
+      temporary
   >
     <v-list>
       <v-list-subheader>Categories</v-list-subheader>
-      <v-list-item
-        v-for="(category, i) in categories"
-        :key="i"
-        :value="category.value"
+      <router-link
+          v-for="(category, i) in categories"
+          :key="i"
+          class="routerLink"
+          :to="`/categories/${category.value}/pictures`"
       >
-        <router-link class="routerLink" :to="`/categories/${category.value}/pictures`">
+        <v-list-item :value="category.value">
           <v-icon start :icon="category.icon"></v-icon>
           {{ category.title }}
-        </router-link>
-      </v-list-item>
+        </v-list-item>
+      </router-link>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -60,7 +61,7 @@ export default {
   },
   mounted() {
     axiosIns('/categories')
-      .then(res => this.categories = res.data)
+        .then(res => this.categories = res.data)
   }
 }
 </script>
