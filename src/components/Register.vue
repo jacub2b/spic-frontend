@@ -87,7 +87,7 @@ export default {
         data: {username, password, email}
       }).then(res => {
         const token = res.data.token
-        this.login(username, token)
+        this.login({username, token})
         this.$router.push('/')
       }).catch(() => this.isError = true)
     }

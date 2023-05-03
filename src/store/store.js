@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
             context.commit('SET_USERNAME', null)
             localStorage.removeItem('jwt_token')
         },
-        login(context, username, token) {
+        login(context, {username, token}) {
             axiosIns.defaults.headers.common['Authorization'] = `Bearer ${token}`
             localStorage.setItem('jwt_token', token)
             context.commit('LOGIN')

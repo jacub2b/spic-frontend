@@ -21,6 +21,13 @@
       temporary
   >
     <v-list>
+      <v-btn
+          v-if="isLogged"
+          id="plus"
+          size="x-small"
+          icon="mdi-plus"
+          @click="showAddCategory = true"
+      />
       <v-list-subheader>Categories</v-list-subheader>
       <router-link
           v-for="(category, i) in categories"
@@ -29,30 +36,41 @@
           :to="`/categories/${category.value}/pictures`"
       >
         <v-list-item :value="category.value">
-          <v-icon start :icon="category.icon"></v-icon>
+          <v-icon start :icon="category.icon"/>
           {{ category.title }}
         </v-list-item>
       </router-link>
     </v-list>
   </v-navigation-drawer>
+
+  <v-dialog width="auto" v-model="showAddCategory" >
+    <add-category @close-dialog="addCategory"/>
+  </v-dialog>
 </template>
 
 <script>
 import {axiosIns} from "../../axios.config";
 import {mapGetters, mapActions} from 'vuex'
+import AddCategory from "@/components/AddCategory";
 
 export default {
+  components: {AddCategory},
   data: () => ({
     drawer: false,
     group: null,
     categories: [],
+    showAddCategory: false
   }),
 
   computed: {
     ...mapGetters(['isLogged', 'getUsername'])
   },
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout']),
+    addCategory(category) {
+      this.showAddCategory = false;
+      this.categories.push(category)
+    }
   },
   watch: {
     group() {
@@ -70,5 +88,11 @@ export default {
 .routerLink {
   text-decoration: none;
   color: inherit;
+}
+
+#plus {
+  position: absolute;
+  right: 15px;
+  top: 15px;
 }
 </style>
