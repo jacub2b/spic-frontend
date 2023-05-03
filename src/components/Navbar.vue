@@ -44,7 +44,10 @@
   </v-navigation-drawer>
 
   <v-dialog width="auto" v-model="showAddCategory" >
-    <add-category @close-dialog="addCategory"/>
+    <add-category
+        @close-dialog="showAddCategory = false"
+        @add-category="addCategory"
+    />
   </v-dialog>
 </template>
 

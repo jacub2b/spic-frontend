@@ -38,7 +38,7 @@ export default {
     handleAddCategory() {
       const category = this.category
       axiosIns('/categories', {method: 'POST', data: {category}})
-          .then((res) => this.$emit('close-dialog', res.data.newCategory))
+          .then((res) => this.$emit('add-category', res.data.newCategory))
           .catch(() => this.isError = true)
     }
   }
