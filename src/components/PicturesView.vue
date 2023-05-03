@@ -6,11 +6,11 @@
       <v-col v-for="(picture, i) in pictures" cols="3">
         <v-card>
           <v-img
-            :src="picture.src"
-            :alt="picture.title"
-            :key="i"
-            height="250"
-            cover
+              :src="picture.src"
+              :alt="picture.title"
+              :key="i"
+              height="250"
+              cover
           >
             <v-checkbox-btn style="font-size: 25px" :value="picture.src" v-model="selectedPictures"/>
           </v-img>
@@ -22,10 +22,11 @@
     <v-row>
       <v-col class="text-center" cols="12">
         <v-btn
-          append-icon="mdi-chevron-right"
-          color="blue"
-          @click="showCarousel = true"
-        >Show me</v-btn>
+            append-icon="mdi-chevron-right"
+            color="blue"
+            @click="showCarousel = true"
+        >Show me
+        </v-btn>
       </v-col>
     </v-row>
 
@@ -48,16 +49,25 @@ export default {
     selectedPictures: [],
     showCarousel: false
   }),
+  methods: {
+    loadPictures(pictures) {
+      this.selectedPictures = []
+      this.pictures = []
+
+      pictures.forEach(pic => {
+        pic.src = axiosIns.defaults.baseURL + pic.src
+        this.pictures.push(pic)
+      })
+    }
+  },
   mounted() {
-    axiosIns(`/categories/${this.category}/pictures`)
-      .then(res => this.pictures = res.data)
+    axiosIns(`/pictures/categories/${this.category}`)
+        .then(res => this.loadPictures(res.data))
   },
   watch: {
     category() {
-      axiosIns(`/categories/${this.category}/pictures`)
-        .then(res => this.pictures = res.data)
-
-      this.selectedPictures = []
+      axiosIns(`/pictures/categories/${this.category}`)
+          .then(res => this.loadPictures(res.data))
     }
   }
 }
