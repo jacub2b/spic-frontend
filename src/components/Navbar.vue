@@ -64,7 +64,6 @@ export default {
     categories: [],
     showAddCategory: false
   }),
-
   computed: {
     ...mapGetters(['isLogged', 'getUsername'])
   },
@@ -80,7 +79,7 @@ export default {
       this.drawer = false
     },
   },
-  mounted() {
+  beforeUpdate() {
     axiosIns('/categories')
         .then(res => this.categories = res.data)
   }
