@@ -1,5 +1,7 @@
 <template>
-  <h1 class="text-h3 text-center mt-5">Select your pictures</h1>
+  <empty-pictures v-if="!pictures.length" :category="category"/>
+
+  <h1 v-if="pictures.length" class="text-h3 text-center mt-5">Select your pictures</h1>
 
   <v-container>
     <v-row>
@@ -19,13 +21,14 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row v-if="pictures.length">
       <v-col class="text-center" cols="12">
         <v-btn
             append-icon="mdi-chevron-right"
             color="blue"
             @click="showCarousel = true"
-        >Show me
+        >
+          Show me
         </v-btn>
       </v-col>
     </v-row>
@@ -39,10 +42,11 @@
 <script>
 import {axiosIns} from "../../axios.config";
 import PicturesCarousel from "@/components/PicturesCarousel";
+import EmptyPictures from "@/components/EmptyPictures";
 
 export default {
   name: "PicturesView",
-  components: {PicturesCarousel},
+  components: {EmptyPictures, PicturesCarousel},
   props: ['category'],
   data: () => ({
     pictures: [],
