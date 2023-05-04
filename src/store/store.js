@@ -22,6 +22,13 @@ export const store = new Vuex.Store({
             localStorage.setItem('jwt_token', token)
             context.commit('LOGIN')
             context.commit('SET_USERNAME', username)
+        },
+        setUsernameByToken(context, token) {
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]))
+                context.commit('SET_USERNAME', payload.username)
+                context.commit('LOGIN')
+            } catch {}
         }
     },
     getters: {
