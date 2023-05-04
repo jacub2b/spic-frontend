@@ -15,11 +15,11 @@ export default {
     Navbar
   },
   methods: {
-    ...mapActions(['setUsernameByToken'])
+    ...mapActions(['loginWithToken'])
   },
   created() {
     const token = localStorage.getItem('jwt_token')
-    if (token) this.setUsernameByToken(token)
+    if (token) this.loginWithToken(token)
   }
 }
 </script>

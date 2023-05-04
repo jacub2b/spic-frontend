@@ -23,11 +23,10 @@ export const store = new Vuex.Store({
             context.commit('LOGIN')
             context.commit('SET_USERNAME', username)
         },
-        setUsernameByToken(context, token) {
+        loginWithToken(context, token) {
             try {
-                const payload = JSON.parse(atob(token.split('.')[1]))
-                context.commit('SET_USERNAME', payload.username)
-                context.commit('LOGIN')
+                const {username} = JSON.parse(atob(token.split('.')[1]))
+                context.dispatch('login', {username, token})
             } catch {}
         }
     },
