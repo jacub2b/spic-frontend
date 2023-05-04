@@ -27,6 +27,7 @@
             append-icon="mdi-chevron-right"
             color="blue"
             @click="showCarousel = true"
+            :disabled="!selectedPictures.length"
         >
           Show me
         </v-btn>
