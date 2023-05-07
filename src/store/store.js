@@ -11,7 +11,8 @@ export const store = new Vuex.Store({
         LOGOUT: state => state.isLogged = false,
         LOGIN: state => state.isLogged = true,
         SET_USERNAME: (state, username) => state.username = username,
-        UPDATE_PICTURES: (state, selectedPictures) => state.selectedPictures = selectedPictures
+        UPDATE_PICTURES: (state, selectedPictures) => state.selectedPictures = selectedPictures,
+        CLEAR_PICTURES: state => state.selectedPictures.splice(0)
     },
     actions: {
         logout(context) {
@@ -34,6 +35,9 @@ export const store = new Vuex.Store({
         },
         updatePictures(context, selectedPictures) {
             context.commit('UPDATE_PICTURES', selectedPictures)
+        },
+        clearSelectedPictures(context) {
+            context.commit('CLEAR_PICTURES')
         }
     },
     getters: {

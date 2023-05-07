@@ -37,7 +37,18 @@
     </v-row>
 
     <v-row v-if="pictures.length">
-      <v-col cols="6" class="text-end">
+      <v-col class="text-right">
+        <v-btn
+          append-icon="mdi-backspace-outline"
+          color="grey-darken-3"
+          @click="clearSelectedPictures"
+          :disabled="!selectedPictures.length"
+        >
+          Clear selected pictures
+        </v-btn>
+      </v-col>
+
+      <v-col class="text-center" cols="auto" >
         <v-btn
             append-icon="mdi-chevron-right"
             color="blue"
@@ -48,7 +59,7 @@
         </v-btn>
       </v-col>
 
-      <v-col cols="6" v-if="isLogged">
+      <v-col v-if="isLogged">
         <v-btn
             append-icon="mdi-image-plus-outline"
             color="blue"
@@ -113,7 +124,7 @@ export default {
     pictureSrcToDelete: null
   }),
   methods: {
-    ...mapActions(['updatePictures']),
+    ...mapActions(['updatePictures', 'clearSelectedPictures']),
     loadPictures(pictures) {
       this.pictures = []
 
