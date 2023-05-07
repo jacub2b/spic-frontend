@@ -26,8 +26,8 @@
       </v-col>
     </v-row>
 
-    <v-row v-if="pictures.length">
-      <v-col class="text-center" cols="12">
+    <v-row v-if="pictures.length" justify="center">
+      <v-col class="text-center" cols="1">
         <v-btn
             append-icon="mdi-chevron-right"
             color="blue"
@@ -37,7 +37,25 @@
           Show me
         </v-btn>
       </v-col>
+
+      <v-col cols="2" class="text-center" v-if="isLogged">
+        <v-btn
+            append-icon="mdi-image-plus-outline"
+            color="blue"
+            @click="moveToAddPicture"
+        >
+          Add Picture
+        </v-btn>
+      </v-col>
     </v-row>
+
+    <add-pictures
+        id="addPictures"
+        v-if="showAddPicture"
+        :category="category"
+        title="Add a picture"
+        text="Upload a new picture to this category"
+    />
 
     <v-dialog v-model="showCarousel">
       <PicturesCarousel :pictures-paths="selectedPictures"/>
@@ -49,15 +67,20 @@
 import {axiosIns} from "../../axios.config";
 import PicturesCarousel from "@/components/PicturesCarousel";
 import AddPictures from "@/components/AddPictures";
+import {mapGetters} from "vuex";
 
 export default {
   name: "PicturesView",
   components: {AddPictures, PicturesCarousel},
   props: ['category'],
+  computed: {
+    ...mapGetters(['isLogged'])
+  },
   data: () => ({
     pictures: [],
     selectedPictures: [],
-    showCarousel: false
+    showCarousel: false,
+    showAddPicture: false
   }),
   methods: {
     loadPictures(pictures) {
@@ -68,11 +91,18 @@ export default {
         pic.src = axiosIns.defaults.baseURL + pic.src
         this.pictures.push(pic)
       })
+    },
+    moveToAddPicture() {
+      this.showAddPicture = true
+      setTimeout(() => window.addPictures.scrollIntoView({behavior: 'smooth'}), 200)  // Component loading delay
     }
   },
   mounted() {
     axiosIns(`/pictures/categories/${this.category}`)
         .then(res => this.loadPictures(res.data))
+  },
+  beforeUpdate() {
+    this.showAddPicture = false
   },
   watch: {
     category() {
