@@ -36,17 +36,37 @@
           :to="`/categories/${category.value}/pictures`"
       >
         <v-list-item :value="category.value">
-          <v-icon start :icon="category.icon"/>
+          <v-icon
+              start
+              :icon="category.icon"
+          />
           {{ category.title }}
+          <v-btn
+              v-if="category.owner !== 'public'"
+              icon="mdi-trash-can-outline"
+              size="x-small"
+              id="delCategory"
+              @click="deleteCategory(`/categories/${category.value}`)"
+          />
         </v-list-item>
       </router-link>
     </v-list>
   </v-navigation-drawer>
 
-  <v-dialog width="auto" v-model="showAddCategory" >
+  <v-dialog width="auto" v-model="showAddCategory">
     <add-category
         @close-dialog="showAddCategory = false"
         @add-category="addCategory"
+    />
+  </v-dialog>
+
+  <v-dialog width="auto" v-model="showDeleteCategory">
+    <delete-item
+        @close-dialog="showDeleteCategory = false"
+        @success="goHome"
+        title="Delete Category"
+        text="Are you sure you want to delete the category?"
+        :src="categorySrcToDelete"
     />
   </v-dialog>
 </template>
@@ -55,14 +75,17 @@
 import {axiosIns} from "../../axios.config";
 import {mapGetters, mapActions} from 'vuex'
 import AddCategory from "@/components/AddCategory";
+import DeleteItem from "@/components/DeleteItem";
 
 export default {
-  components: {AddCategory},
+  components: {DeleteItem, AddCategory},
   data: () => ({
     drawer: false,
     group: null,
     categories: [],
-    showAddCategory: false
+    showAddCategory: false,
+    showDeleteCategory: false,
+    categorySrcToDelete: null
   }),
   computed: {
     ...mapGetters(['isLogged', 'getUsername'])
@@ -72,6 +95,13 @@ export default {
     addCategory(category) {
       this.showAddCategory = false;
       this.categories.push(category)
+    },
+    deleteCategory(src) {
+      this.categorySrcToDelete = src
+      this.showDeleteCategory = true
+    },
+    goHome() {
+      location.href = '/'
     }
   },
   watch: {
@@ -96,5 +126,10 @@ export default {
   position: absolute;
   right: 15px;
   top: 15px;
+}
+
+#delCategory {
+  position: absolute;
+  right: 15px;
 }
 </style>

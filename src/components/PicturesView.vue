@@ -74,6 +74,7 @@
     <v-dialog width="auto" v-model="showDeletePicture">
       <delete-item
           @close-dialog="showDeletePicture = false"
+          @success="this.$router.go()"
           title="Delete Picture"
           text="Are you sure you want to delete the picture?"
           :src="pictureSrcToDelete"

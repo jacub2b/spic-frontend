@@ -23,7 +23,7 @@ export default {
   methods: {
     deleteItem() {
       axiosIns.delete(this.src)
-      this.$router.go()
+      this.$emit('success')
     }
   }
 }
