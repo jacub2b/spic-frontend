@@ -36,8 +36,8 @@
       </v-col>
     </v-row>
 
-    <v-row v-if="pictures.length" justify="center">
-      <v-col class="text-center" cols="1">
+    <v-row v-if="pictures.length">
+      <v-col cols="6" class="text-end">
         <v-btn
             append-icon="mdi-chevron-right"
             color="blue"
@@ -48,7 +48,7 @@
         </v-btn>
       </v-col>
 
-      <v-col cols="2" class="text-center" v-if="isLogged">
+      <v-col cols="6" v-if="isLogged">
         <v-btn
             append-icon="mdi-image-plus-outline"
             color="blue"
