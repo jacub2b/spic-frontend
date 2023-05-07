@@ -19,7 +19,17 @@
               height="250"
               cover
           >
-            <v-checkbox-btn style="font-size: 25px" :value="picture.src" v-model="selectedPictures"/>
+            <v-checkbox-btn
+                style="font-size: 25px"
+                :value="picture.src"
+                v-model="selectedPictures"
+            />
+            <v-btn
+                v-if="picture.owner !== 'public'"
+                id="delPic"
+                icon="mdi-trash-can-outline"
+                @click="deletePicture(picture.src)"
+            />
           </v-img>
           <v-card-title>{{ picture.title }}</v-card-title>
         </v-card>
@@ -60,6 +70,15 @@
     <v-dialog v-model="showCarousel">
       <PicturesCarousel :pictures-paths="selectedPictures"/>
     </v-dialog>
+
+    <v-dialog width="auto" v-model="showDeletePicture">
+      <delete-item
+          @close-dialog="showDeletePicture = false"
+          title="Delete Picture"
+          text="Are you sure you want to delete the picture?"
+          :src="pictureSrcToDelete"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
@@ -68,10 +87,11 @@ import {axiosIns} from "../../axios.config";
 import PicturesCarousel from "@/components/PicturesCarousel";
 import AddPictures from "@/components/AddPictures";
 import {mapGetters} from "vuex";
+import DeleteItem from "@/components/DeleteItem";
 
 export default {
   name: "PicturesView",
-  components: {AddPictures, PicturesCarousel},
+  components: {DeleteItem, AddPictures, PicturesCarousel},
   props: ['category'],
   computed: {
     ...mapGetters(['isLogged'])
@@ -80,7 +100,9 @@ export default {
     pictures: [],
     selectedPictures: [],
     showCarousel: false,
-    showAddPicture: false
+    showAddPicture: false,
+    showDeletePicture: false,
+    pictureSrcToDelete: null
   }),
   methods: {
     loadPictures(pictures) {
@@ -95,6 +117,10 @@ export default {
     moveToAddPicture() {
       this.showAddPicture = true
       setTimeout(() => window.addPictures.scrollIntoView({behavior: 'smooth'}), 200)  // Component loading delay
+    },
+    deletePicture(src) {
+      this.pictureSrcToDelete = src
+      this.showDeletePicture = true
     }
   },
   mounted() {
@@ -116,5 +142,11 @@ export default {
 <style scoped>
 h1 {
   margin-top: 100px !important;
+}
+
+#delPic {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>
