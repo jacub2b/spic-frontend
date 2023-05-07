@@ -68,7 +68,7 @@
     />
 
     <v-dialog v-model="showCarousel">
-      <PicturesCarousel :pictures-paths="selectedPictures"/>
+      <PicturesCarousel/>
     </v-dialog>
 
     <v-dialog width="auto" v-model="showDeletePicture">
@@ -87,7 +87,7 @@
 import {axiosIns} from "../../axios.config";
 import PicturesCarousel from "@/components/PicturesCarousel";
 import AddPictures from "@/components/AddPictures";
-import {mapGetters} from "vuex";
+import {mapGetters, mapActions} from "vuex";
 import DeleteItem from "@/components/DeleteItem";
 
 export default {
@@ -95,19 +95,26 @@ export default {
   components: {DeleteItem, AddPictures, PicturesCarousel},
   props: ['category'],
   computed: {
-    ...mapGetters(['isLogged'])
+    ...mapGetters(['isLogged']),
+    selectedPictures: {
+      get() {
+        return this.$store.state.selectedPictures
+      },
+      set(selectedPictures) {
+        this.updatePictures(selectedPictures)
+      }
+    }
   },
   data: () => ({
     pictures: [],
-    selectedPictures: [],
     showCarousel: false,
     showAddPicture: false,
     showDeletePicture: false,
     pictureSrcToDelete: null
   }),
   methods: {
+    ...mapActions(['updatePictures']),
     loadPictures(pictures) {
-      this.selectedPictures = []
       this.pictures = []
 
       pictures.forEach(pic => {

@@ -4,7 +4,7 @@
     hide-delimiter-background
   >
     <v-carousel-item
-      v-for="(path, i) in picturesPaths"
+      v-for="(path, i) in selectedPictures"
       :key="i"
       :src="path"
     />
@@ -12,8 +12,12 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "PicturesCarousel",
-  props: ['picturesPaths'],
+  computed: {
+    ...mapState(['selectedPictures'])
+  }
 }
 </script>

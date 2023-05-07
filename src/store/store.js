@@ -4,12 +4,14 @@ import {axiosIns} from "../../axios.config";
 export const store = new Vuex.Store({
     state: {
         isLogged: false,
-        username: null
+        username: null,
+        selectedPictures: []
     },
     mutations: {
         LOGOUT: state => state.isLogged = false,
         LOGIN: state => state.isLogged = true,
-        SET_USERNAME: (state, username) => state.username = username
+        SET_USERNAME: (state, username) => state.username = username,
+        UPDATE_PICTURES: (state, selectedPictures) => state.selectedPictures = selectedPictures
     },
     actions: {
         logout(context) {
@@ -29,6 +31,9 @@ export const store = new Vuex.Store({
                 const {username} = JSON.parse(atob(token.split('.')[1]))
                 context.dispatch('login', {username, token})
             } catch {}
+        },
+        updatePictures(context, selectedPictures) {
+            context.commit('UPDATE_PICTURES', selectedPictures)
         }
     },
     getters: {
