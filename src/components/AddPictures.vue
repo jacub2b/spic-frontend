@@ -1,7 +1,7 @@
 <template>
   <v-container style="width: 50%" class="ma-auto">
-    <div class="text-center text-h2 mt-16">Pictures not found</div>
-    <div class="text-center text-h4 mt-3">Oh, you don't have any pictures here. If you want to add - upload now!</div>
+    <div class="text-center text-h2 mt-16">{{ title }}</div>
+    <div class="text-center text-h4 mt-3">{{ text }}</div>
 
     <v-row style="width: 40%" class="ma-auto">
       <v-col cols="12">
@@ -46,7 +46,7 @@ import {axiosIns} from "../../axios.config";
 
 export default {
   name: "EmptyPictures",
-  props: ['category'],
+  props: ['category', 'title', 'text'],
   data: () => ({
     file: [],
     pictureName: ''

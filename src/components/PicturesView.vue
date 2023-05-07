@@ -1,5 +1,10 @@
 <template>
-  <empty-pictures v-if="!pictures.length" :category="category"/>
+  <add-pictures
+      v-if="!pictures.length"
+      :category="category"
+      title="Pictures not found"
+      text="Oh, you don't have any pictures here. If you want to add - upload now!"
+  />
 
   <h1 v-if="pictures.length" class="text-h3 text-center mt-5">Select your pictures</h1>
 
@@ -43,11 +48,11 @@
 <script>
 import {axiosIns} from "../../axios.config";
 import PicturesCarousel from "@/components/PicturesCarousel";
-import EmptyPictures from "@/components/EmptyPictures";
+import AddPictures from "@/components/AddPictures";
 
 export default {
   name: "PicturesView",
-  components: {EmptyPictures, PicturesCarousel},
+  components: {AddPictures, PicturesCarousel},
   props: ['category'],
   data: () => ({
     pictures: [],
