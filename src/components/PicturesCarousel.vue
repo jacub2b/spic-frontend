@@ -9,6 +9,7 @@
       :src="src"
     >
     <h3 class="picture-title">{{title}}</h3>
+    <v-btn icon="mdi-volume-high" @click="speak(title)"/>
   </v-carousel-item>
   </v-carousel>
 </template>
@@ -18,8 +19,15 @@ import {mapState} from "vuex";
 
 export default {
   name: "PicturesCarousel",
+
   computed: {
     ...mapState(['selectedPictures'])
+  },
+  methods: {
+    speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
+    }
   }
 }
 </script>
