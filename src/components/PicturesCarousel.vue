@@ -8,9 +8,11 @@
       :key="i"
       :src="src"
     >
-    <h3 class="picture-title">{{title}}</h3>
-    <v-btn icon="mdi-volume-high" @click="speak(title)"/>
-  </v-carousel-item>
+      <div class="picture-actions d-flex mb-5">
+        <h3 class="picture-title">{{title}}</h3>
+        <v-btn icon="mdi-volume-high" @click="speak(title)"/>
+      </div>
+    </v-carousel-item>
   </v-carousel>
 </template>
 
@@ -37,14 +39,18 @@ p {
   font-family: "Franklin Gothic Book", sans-serif !important;
 }
 
-.picture-title {
+.picture-actions {
     position: absolute;
-    bottom: 0%;
+    bottom: 0;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.picture-title {
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 8px;
     color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
+    border-radius: 15px;
+}
 
 </style>
