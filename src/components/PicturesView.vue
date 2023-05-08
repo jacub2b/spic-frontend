@@ -10,7 +10,7 @@
 
   <v-container>
     <v-row>
-      <v-col v-for="(picture, i) in pictures" cols="3">
+      <v-col v-for="(picture, i) in pictures" cols="3" :key="i">
         <v-card>
           <v-img
               :src="picture.src"
@@ -21,14 +21,14 @@
           >
             <v-checkbox-btn
                 style="font-size: 25px"
-                :value="picture.src"
+                :value="picture"
                 v-model="selectedPictures"
             />
             <v-btn
                 v-if="picture.owner !== 'public'"
                 id="delPic"
                 icon="mdi-trash-can-outline"
-                @click="deletePicture(picture.src)"
+                @click="deletePicture(picture)"
             />
           </v-img>
           <v-card-title>{{ picture.title }}</v-card-title>

@@ -4,10 +4,12 @@
     hide-delimiter-background
   >
     <v-carousel-item
-      v-for="(path, i) in selectedPictures"
+      v-for="({src, title}, i) in selectedPictures"
       :key="i"
-      :src="path"
-    />
+      :src="src"
+    >
+    <h3 class="picture-title">{{title}}</h3>
+  </v-carousel-item>
   </v-carousel>
 </template>
 
@@ -21,3 +23,20 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+p {
+  font-family: "Franklin Gothic Book", sans-serif !important;
+}
+
+.picture-title {
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+</style>
